@@ -36,7 +36,7 @@ OHLC 資料 example:
   "channel": "live_trades_btcusd",
   "data": {
     // 每分鐘
-    // ohcl 00 ~ 59 秒, 底層實作時間區間抓取是基於 microTimestamp
+    // ohcl 00 ~ 59 秒
     "startTimestamp": "1676539620",
     "endTimestamp": "1676539679",
 
