@@ -117,10 +117,12 @@ export class LiveTradeGateway
       const sub = session.liveTradeSubscriptions[cp];
       if (sub) {
         sub.unsubscribe();
+        delete session.liveTradeSubscriptions[cp];
       }
       const ohlcSub = session.ohlcSubscriptions[cp];
       if (ohlcSub) {
         ohlcSub.unsubscribe();
+        delete session.ohlcSubscriptions[cp];
       }
     }
 
