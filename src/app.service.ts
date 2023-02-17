@@ -16,7 +16,7 @@ export class AppService {
       if (isAxiosError(error)) {
         throw new HttpException(
           'hacker news api not working.',
-          HttpStatus.TOO_MANY_REQUESTS,
+          HttpStatus.INTERNAL_SERVER_ERROR,
         );
       } else {
         throw error;
