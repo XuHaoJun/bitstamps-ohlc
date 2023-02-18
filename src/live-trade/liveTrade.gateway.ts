@@ -43,7 +43,7 @@ export class LiveTradeGateway
       const sub = session.liveTradeSubscriptions[cp];
       sub.unsubscribe();
     }
-    for (const cp in session.liveTradeSubscriptions) {
+    for (const cp in session.ohlcSubscriptions) {
       const sub = session.ohlcSubscriptions[cp];
       sub.unsubscribe();
     }
