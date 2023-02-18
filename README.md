@@ -1,3 +1,7 @@
+## Spec
+
+[Spec](docs/spec.md)
+
 ## Description
 
 subscribue/unsubscribue client-side example:
