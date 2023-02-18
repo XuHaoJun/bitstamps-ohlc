@@ -38,6 +38,15 @@ export class LiveTradeGateway
   }
 
   handleDisconnect(client: WebSocket) {
+    const session = this.clientSessions.get(client);
+    for (const cp in session.liveTradeSubscriptions) {
+      const sub = session.liveTradeSubscriptions[cp];
+      sub.unsubscribe();
+    }
+    for (const cp in session.liveTradeSubscriptions) {
+      const sub = session.ohlcSubscriptions[cp];
+      sub.unsubscribe();
+    }
     this.clientSessions.delete(client);
   }
 
