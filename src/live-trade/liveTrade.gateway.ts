@@ -13,6 +13,11 @@ import { concat, filter, from, Observable, Subject, Subscription } from 'rxjs';
 import { Server, WebSocket } from 'ws';
 import { v4 as uuidv4 } from 'uuid';
 import { LiveTradeService, parseChannel } from './liveTrade.service';
+import {
+  SubscribeLiveTradeData,
+  UnsubscribeLiveTradeData,
+} from './dto/liveTrade.dto';
+import { ValidationPipe } from '@nestjs/common';
 
 @WebSocketGateway({ path: '/streaming' })
 export class LiveTradeGateway
@@ -52,7 +57,8 @@ export class LiveTradeGateway
 
   @SubscribeMessage('subscribe')
   subscribeMany(
-    @MessageBody() data: SubscribeLiveTradeData,
+    @MessageBody(new ValidationPipe({ transform: true }))
+    data: SubscribeLiveTradeData,
     @ConnectedSocket() client: WebSocket,
   ): Observable<WsResponse<any>> {
     const session = this.clientSessions.get(client);
@@ -115,7 +121,8 @@ export class LiveTradeGateway
 
   @SubscribeMessage('unsubscribe')
   unsubscribeMany(
-    @MessageBody() data: UnsubscribeLiveTradeData,
+    @MessageBody(new ValidationPipe({ transform: true }))
+    data: UnsubscribeLiveTradeData,
     @ConnectedSocket() client: WebSocket,
   ): Observable<WsResponse<any>> {
     const session = this.clientSessions.get(client);
@@ -165,17 +172,6 @@ export class LiveTradeGateway
       }),
     );
   }
-}
-
-interface SubscribeLiveTradeData {
-  currencyPairs: string[];
-  ohlc: {
-    enabled: boolean;
-  };
-}
-
-interface UnsubscribeLiveTradeData {
-  currencyPairs: string[];
 }
 
 interface ClientSession {
